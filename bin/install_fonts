@@ -8,11 +8,11 @@ set -o nounset
 set -o errexit
 set -o pipefail
 IFS=$'\n\t'
-SCRIPT_PATH="$MACOS_CONFIG_PATH/bin/install_extensions"
+SCRIPT_PATH="$MACOS_CONFIG_PATH/bin/install_fonts"
 
 # EXECUTION
 if [[ -x "$SCRIPT_PATH" ]]; then
   "$SCRIPT_PATH"
 else
-  printf "WARNING: Application extensions install script does not exist or is not executable.\n"
+  printf "WARNING: Font install script ($SCRIPT_PATH) does not exist or is not executable.\n"
 fi

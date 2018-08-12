@@ -24,14 +24,14 @@ printf "  5. Use the dialog options to launch Disk Utility, reinstall the system
 
 printf "\nCreating macOS boot disk...\n"
 
-if [[ ! -d "$MAC_OS_INSTALLER_PATH" ]]; then
-  printf "ERROR: macOS installer does not exist: $MAC_OS_INSTALLER_PATH. Use the App Store to download.\n"
+if [[ ! -d "$MACOS_INSTALLER_PATH" ]]; then
+  printf "ERROR: macOS installer does not exist: $MACOS_INSTALLER_PATH. Use the App Store to download.\n"
   exit 1
 fi
 
-if [[ ! -d "$MAC_OS_BOOT_DISK_PATH" ]]; then
-  printf "ERROR: Boot disk must be mounted at: $MAC_OS_BOOT_DISK_PATH.\n"
+if [[ ! -d "$MACOS_BOOT_DISK_PATH" ]]; then
+  printf "ERROR: Boot disk must be mounted at: $MACOS_BOOT_DISK_PATH.\n"
   exit 1
 fi
 
-sudo "$MAC_OS_BOOT_DISK_CREATOR" --volume "$MAC_OS_BOOT_DISK_PATH" --applicationpath "$MAC_OS_INSTALLER_PATH" --nointeraction
+sudo "$MACOS_BOOT_DISK_CREATOR" --volume "$MACOS_BOOT_DISK_PATH" --applicationpath "$MACOS_INSTALLER_PATH" --nointeraction

@@ -15,16 +15,16 @@ source lib/uninstallers.sh
 source lib/utilities.sh
 source lib/verifiers.sh
 
-if [[ -e "$MAC_OS_CONFIG_PATH" ]]; then
-  source "$MAC_OS_CONFIG_PATH/lib/settings.sh"
+if [[ -e "$MACOS_CONFIG_PATH" ]]; then
+  source "$MACOS_CONFIG_PATH/lib/settings.sh"
 else
-  printf "ERROR: Unable to load macOS configuration: $MAC_OS_CONFIG_PATH.\n\n"
+  printf "ERROR: Unable to load macOS configuration: $MACOS_CONFIG_PATH.\n\n"
   printf "Please check the following before continuing:\n"
-  printf "  • Download the default macOS configuration here: https://github.com/bkuhlmann/mac_os-config.\n"
+  printf "  • Download the default macOS configuration here: https://github.com/joekallen/macos-config.\n"
   printf "  • Customize as necessary for your setup or fork the project and make your own configuration.\n"
   printf "  • When finished, your folder structure should look like this:\n"
-  printf "    • <root path>/mac_os:\n"
-  printf "    • <root path>/mac_os-config:\n"
+  printf "    • <root path>/macos:\n"
+  printf "    • <root path>/macos-config:\n"
   exit 1
 fi
 
@@ -37,6 +37,7 @@ while true; do
     printf "     B:  Create boot disk.\n"
     printf "  Install:\n"
     printf "     b:  Apply basic settings.\n"
+    printf "     f:  Install user fonts.\n"
     printf "     t:  Install development tools.\n"
     printf "    hf:  Install Homebrew Formulas.\n"
     printf "    hc:  Install Homebrew Casks.\n"

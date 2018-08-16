@@ -27,9 +27,12 @@ process_option() {
       bin/apply_default_settings;;
     's')
       bin/setup_software;;
+    'f')
+      bin/install_fonts;;  
     'i')
       caffeinate_machine
       bin/apply_basic_settings
+      bin/install_fonts
       bin/install_dev_tools
       bin/install_homebrew_formulas
       bin/install_homebrew_casks

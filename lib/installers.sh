@@ -14,7 +14,7 @@ install_dmg_app() {
 
   if [[ ! -e "$install_path" ]]; then
     download_installer "$url" "$download_file"
-    mount_image "$MAC_OS_WORK_PATH/$download_file"
+    mount_image "$MACOS_WORK_PATH/$download_file"
     install_app "$mount_point" "$app_name"
     unmount_image "$mount_point"
     verify_application "$app_name"
@@ -33,7 +33,7 @@ install_dmg_pkg() {
 
   if [[ ! -e "$install_path" ]]; then
     download_installer "$url" "$download_file"
-    mount_image "$MAC_OS_WORK_PATH/$download_file"
+    mount_image "$MACOS_WORK_PATH/$download_file"
     install_pkg "$mount_point" "$app_name"
     unmount_image "$mount_point"
     printf "Installed: $app_name.\n"
@@ -55,12 +55,12 @@ install_zip_app() {
 
     (
       printf "Preparing...\n"
-      cd "$MAC_OS_WORK_PATH"
+      cd "$MACOS_WORK_PATH"
       unzip -q "$download_file"
       find . -type d -name "$app_name" -print -exec cp -pR {} . > /dev/null 2>&1 \;
     )
 
-    install_app "$MAC_OS_WORK_PATH" "$app_name"
+    install_app "$MACOS_WORK_PATH" "$app_name"
     printf "Installed: $app_name.\n"
     verify_application "$app_name"
   fi
@@ -81,11 +81,11 @@ install_tar_app() {
 
     (
       printf "Preparing...\n"
-      cd "$MAC_OS_WORK_PATH"
+      cd "$MACOS_WORK_PATH"
       tar "$options" "$download_file"
     )
 
-    install_app "$MAC_OS_WORK_PATH" "$app_name"
+    install_app "$MACOS_WORK_PATH" "$app_name"
     printf "Installed: $app_name.\n"
     verify_application "$app_name"
   fi
@@ -105,11 +105,11 @@ install_zip_pkg() {
 
     (
       printf "Preparing...\n"
-      cd "$MAC_OS_WORK_PATH"
+      cd "$MACOS_WORK_PATH"
       unzip -q "$download_file"
     )
 
-    install_pkg "$MAC_OS_WORK_PATH" "$app_name"
+    install_pkg "$MACOS_WORK_PATH" "$app_name"
     printf "Installed: $app_name.\n"
     verify_application "$app_name"
   fi
@@ -164,8 +164,8 @@ download_installer() {
 
   printf "%s\n" "Downloading $1..."
   clean_work_path
-  mkdir $MAC_OS_WORK_PATH
-  curl --header "$http_header" --location --retry 3 --retry-delay 5 --fail --silent --show-error "$url" >> "$MAC_OS_WORK_PATH/$file_name"
+  mkdir $MACOS_WORK_PATH
+  curl --header "$http_header" --location --retry 3 --retry-delay 5 --fail --silent --show-error "$url" >> "$MACOS_WORK_PATH/$file_name"
 }
 export -f download_installer
 
@@ -177,10 +177,23 @@ download_only() {
   else
     printf "Downloading $1...\n"
     download_installer "$1" "$2"
-    mv "$MAC_OS_WORK_PATH/$2" "$HOME/Downloads"
+    mv "$MACOS_WORK_PATH/$2" "$HOME/Downloads"
   fi
 }
 export -f download_only
+
+# Copys files, like fonts.
+# Parameters: $1 (required) Directory to copy to, $2 (required) - Directory to copy from
+copy_files() {
+  local install_path="$MACOS_CONFIG_PATH/$1"
+  local dest_path="${HOME}/$2"
+  
+  if [[ -e "$install_path" && -e "$dest_path" ]]; then
+    printf "Installing: $install_path to $dest_path ...\n"
+    cp "$install_path/*" "$dest_path/"
+  fi
+}
+export -f copy_files
 
 # Installs a single file.
 # Parameters: $1 (required) - URL, $2 (required) - Install path.
@@ -193,7 +206,7 @@ install_file() {
     printf "Installing: $install_path...\n"
     download_installer "$file_url" "$file_name"
     mkdir -p $(dirname "$install_path")
-    mv "$MAC_OS_WORK_PATH/$file_name" "$install_path"
+    mv "$MACOS_WORK_PATH/$file_name" "$install_path"
     printf "Installed: $file_name.\n"
     verify_path "$install_path"
   fi

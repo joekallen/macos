@@ -11,11 +11,11 @@ set -o pipefail
 IFS=$'\n\t'
 
 # Globals
-export MAC_OS_BOOT_DISK_CREATOR="/Applications/Install macOS High Sierra.app/Contents/Resources/createinstallmedia"
-export MAC_OS_BOOT_DISK_PATH="/Volumes/Untitled"
-export MAC_OS_INSTALLER_PATH="/Applications/Install macOS High Sierra.app"
-export MAC_OS_WORK_PATH=/tmp/downloads
-export MAC_OS_CONFIG_PATH="../mac_os-config"
+export MACOS_BOOT_DISK_CREATOR="/Applications/Install macOS High Sierra.app/Contents/Resources/createinstallmedia"
+export MACOS_BOOT_DISK_PATH="/Volumes/Untitled"
+export MACOS_INSTALLER_PATH="/Applications/Install macOS High Sierra.app"
+export MACOS_WORK_PATH=/tmp/downloads
+export MACOS_CONFIG_PATH="../macos-config"
 
 # Java
 export JAVA_LABEL="Java SE Development Kit"

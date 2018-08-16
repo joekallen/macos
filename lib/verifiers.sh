@@ -26,7 +26,7 @@ verify_homebrew_formulas() {
 
       verify_listed_application "$application" "${applications[*]}"
     fi
-  done < "$MAC_OS_CONFIG_PATH/bin/install_homebrew_formulas"
+  done < "$MACOS_CONFIG_PATH/bin/install_homebrew_formulas"
 
   printf "Homebrew formula check complete.\n"
 }
@@ -55,7 +55,7 @@ verify_homebrew_casks() {
 
       verify_listed_application "$application" "${applications[*]}"
     fi
-  done < "$MAC_OS_CONFIG_PATH/bin/install_homebrew_casks"
+  done < "$MACOS_CONFIG_PATH/bin/install_homebrew_casks"
 
   printf "Homebrew cask check complete.\n"
 }
@@ -73,7 +73,7 @@ verify_app_store_applications() {
       local application=$(printf "$line" | awk '{print $3}')
       verify_listed_application "$application" "${applications[*]}"
     fi
-  done < "$MAC_OS_CONFIG_PATH/bin/install_app_store"
+  done < "$MACOS_CONFIG_PATH/bin/install_app_store"
 
   printf "App Store check complete.\n"
 }
